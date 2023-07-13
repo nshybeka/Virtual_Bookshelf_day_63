@@ -38,6 +38,13 @@ def add():
     return render_template('add.html')
 
 
+@app.route("/")
+def home():
+    result = db.session.execute(db.select(Book).order_by(Book.title))
+    all_books = result.scalars()
+    return render_template("index.html", books=all_books)
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
 
